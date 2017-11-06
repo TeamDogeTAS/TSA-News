@@ -48,6 +48,18 @@ public class TsaNewsLoginTests {
     }
 
     @Test
+    public void verifyTermsPage(){
+        //given
+        steps.givenThePageLoads();
+        //when
+        steps.clickTermsLink();
+        //then
+        steps.termsPageIsDisplayed();
+        //and
+        steps.navigateBackToReqestPage();
+    }
+
+    @Test
     public void tryingToLoginWithoutCorrectPin(){
         //given
         steps.givenThePageLoads();

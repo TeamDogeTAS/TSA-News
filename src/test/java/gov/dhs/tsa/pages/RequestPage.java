@@ -25,6 +25,9 @@ public class RequestPage extends PageObject{
     @FindBy(id = "Tap_Here_Link")
     public WebElementFacade tapHereLink;
 
+    @FindBy(id = "terms_link")
+    public WebElementFacade termsLink;
+
     public void verifyPageOpens() {
         open();
         assertThat(emailInput.getText().equalsIgnoreCase("email address"));
@@ -51,4 +54,9 @@ public class RequestPage extends PageObject{
     public void clickAlreadyHavePin() {
         tapHereLink.click();
     }
+
+    public void clickTerms() {
+        termsLink.click();
+    }
+
 }

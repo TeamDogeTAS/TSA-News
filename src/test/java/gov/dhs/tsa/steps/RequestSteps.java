@@ -2,6 +2,7 @@ package gov.dhs.tsa.steps;
 
 import gov.dhs.tsa.pages.LoginPage;
 import gov.dhs.tsa.pages.RequestPage;
+import gov.dhs.tsa.pages.TermsPage;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 
@@ -9,6 +10,7 @@ public class RequestSteps extends ScenarioSteps{
 
     RequestPage page;
     LoginPage loginPage;
+    TermsPage termsPage;
 
     @Step
     public void givenThePageLoads() {
@@ -50,5 +52,18 @@ public class RequestSteps extends ScenarioSteps{
     @Step
     public void emailAndPinIsEntered(String email, String pin) {
         loginPage.enterEmailAndPin(email, pin);
+    }
+    @Step
+    public void clickTermsLink() {
+        page.clickTerms();
+    }
+    @Step
+    public void termsPageIsDisplayed() {
+        getPages().isCurrentPageAt(TermsPage.class);
+        termsPage.verifyTermsPage();
+    }
+    @Step
+    public void navigateBackToReqestPage() {
+        termsPage.hitBackButton();
     }
 }
