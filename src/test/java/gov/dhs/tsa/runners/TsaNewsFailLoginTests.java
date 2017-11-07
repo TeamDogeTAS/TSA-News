@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(SerenityRunner.class)
-public class TsaNewsLoginTests {
+public class TsaNewsFailLoginTests {
 
     @Managed
     public WebDriver driver;
@@ -56,7 +56,7 @@ public class TsaNewsLoginTests {
         //then
         steps.termsPageIsDisplayed();
         //and
-        steps.navigateBackToReqestPage();
+        steps.navigateBackToRequestPage();
     }
 
     @Test

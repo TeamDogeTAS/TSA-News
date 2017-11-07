@@ -12,58 +12,64 @@ public class RequestSteps extends ScenarioSteps{
     LoginPage loginPage;
     TermsPage termsPage;
 
-    @Step
+    @Step("Open TSA News main Login Page")
     public void givenThePageLoads() {
         page.verifyPageOpens();
     }
 
-    @Step
+    @Step("Click on Request Pin Button")
     public void whenClicked() {
         page.clickOnRequest();
     }
 
-    @Step
+    @Step("The error message should appear")
     public void requestPromptIsThere() {
         page.verifyRequestPrompt();
     }
 
-    @Step
+    @Step("The error message should appear")
     public void loginPromptIsThere() {
         loginPage.verifyLoginPrompt();
     }
 
-    @Step
+    @Step("When the email {0} is used")
     public void whenWrongEmailIsUsed(String emailAddress) {
         page.submitWrongEmail(emailAddress);
     }
-    @Step
+
+    @Step("When the terms checkbox is unchecked")
     public void whenCheckboxIsUnchecked() {
         page.uncheckTerms();
     }
-    @Step
+
+    @Step("Log in with pin")
     public void loginWithPin() {
         page.clickAlreadyHavePin();
     }
+
     @Step
     public void loginPageLoads() {
         getPages().isCurrentPageAt(LoginPage.class);
         loginPage.loginPageLoads();
     }
-    @Step
+
+    @Step("The email {0}, and a random pin {1} is typed in")
     public void emailAndPinIsEntered(String email, String pin) {
         loginPage.enterEmailAndPin(email, pin);
     }
-    @Step
+
+    @Step("Click on the Terms & Conditions link")
     public void clickTermsLink() {
         page.clickTerms();
     }
+
     @Step
     public void termsPageIsDisplayed() {
         getPages().isCurrentPageAt(TermsPage.class);
         termsPage.verifyTermsPage();
     }
-    @Step
-    public void navigateBackToReqestPage() {
+    @Step("Hit the back button to navigate back to the Request Page")
+    public void navigateBackToRequestPage() {
         termsPage.hitBackButton();
     }
 }
