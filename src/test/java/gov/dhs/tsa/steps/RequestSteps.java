@@ -8,23 +8,23 @@ import net.thucydides.core.steps.ScenarioSteps;
 
 public class RequestSteps extends ScenarioSteps{
 
-    RequestPage page;
+    RequestPage requestPage;
     LoginPage loginPage;
     TermsPage termsPage;
 
     @Step("Open TSA News main Login Page")
     public void givenThePageLoads() {
-        page.verifyPageOpens();
+        requestPage.verifyPageOpens();
     }
 
     @Step("Click on Request Pin Button")
     public void whenClicked() {
-        page.clickOnRequest();
+        requestPage.clickOnRequest();
     }
 
     @Step("The error message should appear")
-    public void requestPromptIsThere() {
-        page.verifyRequestPrompt();
+    public void requestPromptIsThere(String errorMessage) {
+        requestPage.verifyRequestPrompt(errorMessage);
     }
 
     @Step("The error message should appear")
@@ -34,17 +34,17 @@ public class RequestSteps extends ScenarioSteps{
 
     @Step("When the email {0} is used")
     public void whenWrongEmailIsUsed(String emailAddress) {
-        page.submitWrongEmail(emailAddress);
+        requestPage.submitEmail(emailAddress);
     }
 
     @Step("When the terms checkbox is unchecked")
     public void whenCheckboxIsUnchecked() {
-        page.uncheckTerms();
+        requestPage.uncheckTerms();
     }
 
     @Step("Log in with pin")
     public void loginWithPin() {
-        page.clickAlreadyHavePin();
+        requestPage.clickAlreadyHavePin();
     }
 
     @Step
@@ -60,7 +60,7 @@ public class RequestSteps extends ScenarioSteps{
 
     @Step("Click on the Terms & Conditions link")
     public void clickTermsLink() {
-        page.clickTerms();
+        requestPage.clickTerms();
     }
 
     @Step
@@ -71,5 +71,18 @@ public class RequestSteps extends ScenarioSteps{
     @Step("Hit the back button to navigate back to the Request Page")
     public void navigateBackToRequestPage() {
         termsPage.hitBackButton();
+    }
+
+    @Step("The email {0} is typed, terms is unchecked")
+    public void requestPinWithEmailWithoutTerms(String email) {
+        requestPage.uncheckTermsWithEmail(email);
+    }
+    @Step("A correct TSA email {0} is used")
+    public void correctEmailIsEntered(String email) {
+        requestPage.submitEmail(email);
+    }
+    @Step
+    public void successfulPinRequestPromptIsDisplayed(String message) {
+        loginPage.verifyPinRequest(message);
     }
 }

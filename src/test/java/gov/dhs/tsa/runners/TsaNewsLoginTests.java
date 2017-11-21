@@ -9,10 +9,10 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(SerenityRunner.class)
-public class TsaNewsFailLoginTests {
+public class TsaNewsLoginTests {
 
     @Managed
-    public WebDriver driver;
+    WebDriver driver;
 
     @Steps
     RequestSteps steps;
@@ -24,7 +24,7 @@ public class TsaNewsFailLoginTests {
         //when
         steps.whenClicked();
         //then
-        steps.requestPromptIsThere();
+        steps.requestPromptIsThere("To get your identification pin, you must use only your TSA email address that ends with \"tsa.dhs.gov.\"");
     }
 
     @Test
@@ -32,19 +32,29 @@ public class TsaNewsFailLoginTests {
         //given
         steps.givenThePageLoads();
         //when
-        steps.whenWrongEmailIsUsed("jae.young.shin@accenturefederal.com");
+        steps.whenWrongEmailIsUsed("doge@accenturefederal.com");
         //then
-        steps.requestPromptIsThere();
+        steps.requestPromptIsThere("To get your identification pin, you must use only your TSA email address that ends with \"tsa.dhs.gov.\"");
     }
 
     @Test
-    public void tryingToLoginWithoutAcceptingTerms(){
+    public void tryingToRequestWithoutAcceptingTerms(){
         //given
         steps.givenThePageLoads();
         //when
         steps.whenCheckboxIsUnchecked();
         //then
-        steps.requestPromptIsThere();
+        steps.requestPromptIsThere("For access to TSANews, you must accept the Terms and Conditions.");
+    }
+
+    @Test
+    public void tryingToRequestWithoutAcceptingTermsWithEmail(){
+        //given
+        steps.givenThePageLoads();
+        //when
+        steps.requestPinWithEmailWithoutTerms("doge@tsa.dhs.gov");
+        //then
+        steps.requestPromptIsThere("For access to TSANews, you must accept the Terms and Conditions.");
     }
 
     @Test
@@ -68,8 +78,18 @@ public class TsaNewsFailLoginTests {
         //and
         steps.loginPageLoads();
         //and
-        steps.emailAndPinIsEntered("jae.shin@tsa.dhs.gov", "29380193");
+        steps.emailAndPinIsEntered("doge@tsa.dhs.gov", "29380193");
         //then
         steps.loginPromptIsThere();
+    }
+
+    @Test
+    public void verifySuccessfulPinRequest(){
+        //given
+        steps.givenThePageLoads();
+        //when
+        steps.correctEmailIsEntered("doge@tsa.dhs.gov");
+        //then
+        steps.successfulPinRequestPromptIsDisplayed("An identification pin has been sent to your email address. Please enter the pin below to log in.");
     }
 }

@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DefaultUrl("http://localhost:8100")
 public class RequestPage extends PageObject{
 
-    @FindBy(id = "Request_PIN")
+    @FindBy(id = "Request_Button")
     public WebElementFacade requestButton;
 
     @FindBy(id = "Error_Message")
@@ -19,13 +19,13 @@ public class RequestPage extends PageObject{
     @FindBy(id = "Email_Input")
     public WebElementFacade emailInput;
 
-    @FindBy(id = "checkbox")
+    @FindBy(id = "Checkbox")
     public WebElementFacade checkBox;
 
-    @FindBy(id = "Tap_Here_Link")
+    @FindBy(id = "Tap_Here")
     public WebElementFacade tapHereLink;
 
-    @FindBy(id = "terms_link")
+    @FindBy(id = "Terms_Link")
     public WebElementFacade termsLink;
 
     public void verifyPageOpens() {
@@ -37,13 +37,14 @@ public class RequestPage extends PageObject{
         requestButton.click();
     }
 
-    public void verifyRequestPrompt() {
-        assertThat(requestPrompt.isDisplayed());
+    public void verifyRequestPrompt(String error) {
+        assertThat(requestPrompt.getText().equals(error));
     }
 
-    public void submitWrongEmail(String email) {
+    public void submitEmail(String email) {
         emailInput.type(email);
         requestButton.click();
+        getDriver().switchTo().alert().accept();
     }
 
     public void uncheckTerms() {
@@ -57,6 +58,11 @@ public class RequestPage extends PageObject{
 
     public void clickTerms() {
         termsLink.click();
+    }
+    public void uncheckTermsWithEmail(String email){
+        emailInput.type(email);
+        checkBox.click();
+        requestButton.click();
     }
 
 }

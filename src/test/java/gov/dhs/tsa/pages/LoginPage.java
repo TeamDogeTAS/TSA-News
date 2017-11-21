@@ -7,13 +7,15 @@ import net.thucydides.core.annotations.At;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@At("http://localhost:8100/#/login")
 public class LoginPage extends PageObject{
 
     @FindBy(id = "error_message")
+    public WebElementFacade errorPrompt;
+
+    @FindBy(id = "prompt")
     public WebElementFacade loginPrompt;
 
-    @FindBy(id = "email_address")
+    @FindBy(id = "email_input")
     public WebElementFacade emailInput;
 
     @FindBy(id = "pin_input")
@@ -23,7 +25,7 @@ public class LoginPage extends PageObject{
     public WebElementFacade loginBtn;
 
     public void verifyLoginPrompt() {
-        assertThat(loginPrompt.isDisplayed());
+        assertThat(errorPrompt.isDisplayed());
     }
 
     public void loginPageLoads(){
@@ -34,5 +36,9 @@ public class LoginPage extends PageObject{
         emailInput.type(email);
         pinInput.type(pin);
         loginBtn.click();
+    }
+
+    public void verifyPinRequest(String message) {
+        assertThat(loginPrompt.getText().equals(message));
     }
 }
