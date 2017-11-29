@@ -44,7 +44,6 @@ public class RequestPage extends PageObject{
     public void submitEmail(String email) {
         emailInput.type(email);
         requestButton.click();
-        getDriver().switchTo().alert().accept();
     }
 
     public void uncheckTerms() {
@@ -59,10 +58,10 @@ public class RequestPage extends PageObject{
     public void clickTerms() {
         termsLink.click();
     }
+
     public void uncheckTermsWithEmail(String email){
         emailInput.type(email);
         checkBox.click();
         requestButton.click();
     }
-
 }

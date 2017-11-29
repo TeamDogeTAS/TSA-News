@@ -2,7 +2,6 @@ package gov.dhs.tsa.runners;
 
 import gov.dhs.tsa.steps.MainAppSteps;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.ClearCookiesPolicy;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Ignore;

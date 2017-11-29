@@ -3,7 +3,6 @@ package gov.dhs.tsa.pages;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.At;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,8 +23,8 @@ public class LoginPage extends PageObject{
     @FindBy(id = "login_button")
     public WebElementFacade loginBtn;
 
-    public void verifyLoginPrompt() {
-        assertThat(errorPrompt.isDisplayed());
+    public void verifyLoginPrompt(String error) {
+        assertThat(errorPrompt.getText().equalsIgnoreCase(error));
     }
 
     public void loginPageLoads(){
