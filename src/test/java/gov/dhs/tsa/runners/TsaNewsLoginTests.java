@@ -1,7 +1,6 @@
 package gov.dhs.tsa.runners;
 
-import gov.dhs.tsa.steps.MainAppSteps;
-import gov.dhs.tsa.steps.RequestSteps;
+import gov.dhs.tsa.steps.StepDefinitions;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -16,105 +15,104 @@ public class TsaNewsLoginTests {
     WebDriver driver;
 
     @Steps
-    RequestSteps steps;
-    MainAppSteps mainAppSteps;
+    StepDefinitions stepDefinitions;
 
     @Test
     public void tryingToLoginWithoutEmail(){
         //given
-        steps.givenThePageLoads();
+        stepDefinitions.givenThePageLoads();
         //when
-        steps.whenClicked();
+        stepDefinitions.whenClicked();
         //then
-        steps.requestPromptIsThere("To get your identification pin, you must use only your TSA email address that ends with \"tsa.dhs.gov.\"");
+        stepDefinitions.requestPromptIsThere("To get your identification pin, you must use only your TSA email address that ends with \"tsa.dhs.gov.\"");
     }
 
     @Test
     public void tryingToLoginWithWrongEmail(){
         //given
-        steps.givenThePageLoads();
+        stepDefinitions.givenThePageLoads();
         //when
-        steps.whenWrongEmailIsUsed("doge@accenturefederal.com");
+        stepDefinitions.whenWrongEmailIsUsed("doge@accenturefederal.com");
         //then
-        steps.requestPromptIsThere("To get your identification pin, you must use only your TSA email address that ends with \"tsa.dhs.gov.\"");
+        stepDefinitions.requestPromptIsThere("To get your identification pin, you must use only your TSA email address that ends with \"tsa.dhs.gov.\"");
         //navigate to login screen
-        steps.loginWithPin();
+        stepDefinitions.loginWithPin();
         //wait for the page
-        steps.loginPageLoads();
+        stepDefinitions.loginPageLoads();
         //try to log in with wrong email address
-        steps.emailAndPinIsEntered("doge@accenturefederal.com", "12345678");
+        stepDefinitions.emailAndPinIsEntered("doge@accenturefederal.com", "12345678");
         //verify error message in login regarding email address
-        steps.loginPromptIsThere("An identification pin is sent only to your TSA email ending in \"tsa.dhs.gov.\" To log in, please provide your TSA email address.");
+        stepDefinitions.loginPromptIsThere("An identification pin is sent only to your TSA email ending in \"tsa.dhs.gov.\" To log in, please provide your TSA email address.");
     }
 
     @Test
     public void tryingToRequestWithoutAcceptingTerms(){
         //given
-        steps.givenThePageLoads();
+        stepDefinitions.givenThePageLoads();
         //when
-        steps.whenCheckboxIsUnchecked();
+        stepDefinitions.whenCheckboxIsUnchecked();
         //then
-        steps.requestPromptIsThere("For access to TSANews, you must accept the Terms and Conditions.");
+        stepDefinitions.requestPromptIsThere("For access to TSANews, you must accept the Terms and Conditions.");
     }
 
     @Test
     public void tryingToRequestWithoutAcceptingTermsWithEmail(){
         //given
-        steps.givenThePageLoads();
+        stepDefinitions.givenThePageLoads();
         //when
-        steps.requestPinWithEmailWithoutTerms("doge@tsa.dhs.gov");
+        stepDefinitions.requestPinWithEmailWithoutTerms("doge@tsa.dhs.gov");
         //then
-        steps.requestPromptIsThere("For access to TSANews, you must accept the Terms and Conditions.");
+        stepDefinitions.requestPromptIsThere("For access to TSANews, you must accept the Terms and Conditions.");
     }
 
     @Test
     public void verifyTermsPage(){
         //given
-        steps.givenThePageLoads();
+        stepDefinitions.givenThePageLoads();
         //when
-        steps.clickTermsLink();
+        stepDefinitions.clickTermsLink();
         //then
-        steps.termsPageIsDisplayed();
+        stepDefinitions.termsPageIsDisplayed();
         //and
-        steps.navigateBackToRequestPage();
+        stepDefinitions.navigateBackToRequestPage();
     }
 
     @Test
     public void tryingToLoginWithoutCorrectPin(){
         //given
-        steps.givenThePageLoads();
+        stepDefinitions.givenThePageLoads();
         //when
-        steps.loginWithPin();
+        stepDefinitions.loginWithPin();
         //and
-        steps.loginPageLoads();
+        stepDefinitions.loginPageLoads();
         //and
-        steps.emailAndPinIsEntered("doge@tsa.dhs.gov", "29380193");
+        stepDefinitions.emailAndPinIsEntered("doge@tsa.dhs.gov", "29380193");
         //then
-        steps.loginPromptIsThere("The pin you entered is incorrect. Pins are 8 characters long. Please try again.");
+        stepDefinitions.loginPromptIsThere("The pin you entered is incorrect. Pins are 8 characters long. Please try again.");
     }
 
     @Test
     public void successfulLogin(){
         //given
-        steps.givenThePageLoads();
+        stepDefinitions.givenThePageLoads();
         //when
-        steps.loginWithPin();
+        stepDefinitions.loginWithPin();
         //and
-        steps.loginPageLoads();
+        stepDefinitions.loginPageLoads();
         //and
-        steps.emailAndPinIsEntered("doge@tsa.dhs.gov", "999ZAZBW");
+        stepDefinitions.emailAndPinIsEntered("doge@tsa.dhs.gov", "999ZAZBW");
         //then
-        steps.newsfeedPageIsDisplayed("Latest News");
+        stepDefinitions.newsfeedPageIsDisplayed("Latest News");
     }
 
     @Test
     public void successfulLoginAfterFailedLogin(){
-        steps.givenThePageLoads();
-        steps.loginWithPin();
-        steps.loginPageLoads();
-        steps.emailAndPinIsEntered("doge@tsa.dhs.gov", "29380193");
-        steps.loginPromptIsThere("The pin you entered is incorrect. Pins are 8 characters long. Please try again.");
-        steps.emailAndPinIsEntered("doge@tsa.dhs.gov", "999ZAZBW");
-        steps.newsfeedPageIsDisplayed("Latest News");
+        stepDefinitions.givenThePageLoads();
+        stepDefinitions.loginWithPin();
+        stepDefinitions.loginPageLoads();
+        stepDefinitions.emailAndPinIsEntered("doge@tsa.dhs.gov", "29380193");
+        stepDefinitions.loginPromptIsThere("The pin you entered is incorrect. Pins are 8 characters long. Please try again.");
+        stepDefinitions.emailAndPinIsEntered("doge@tsa.dhs.gov", "999ZAZBW");
+        stepDefinitions.newsfeedPageIsDisplayed("Latest News");
     }
 }

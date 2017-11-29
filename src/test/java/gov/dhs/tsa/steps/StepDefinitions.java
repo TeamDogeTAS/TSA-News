@@ -7,7 +7,7 @@ import gov.dhs.tsa.pages.TermsPage;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 
-public class RequestSteps extends ScenarioSteps{
+public class StepDefinitions extends ScenarioSteps{
 
     RequestPage requestPage;
     LoginPage loginPage;
@@ -88,5 +88,14 @@ public class RequestSteps extends ScenarioSteps{
     @Step("A correct TSA email {0} is used")
     public void correctEmailIsEntered(String email) {
         requestPage.submitEmail(email);
+    }
+
+    @Step
+    public void verifyHamburgerMenuDisplayed() {
+        latestNewsPage.checkForHamburgerMenu();
+    }
+    @Step
+    public void verifyTsanewsLogoDisplayed() {
+        latestNewsPage.checkForLogo();
     }
 }

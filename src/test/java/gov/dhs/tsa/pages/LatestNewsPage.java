@@ -11,9 +11,25 @@ public class LatestNewsPage extends PageObject{
     @FindBy(id = "Page_Header")
     public WebElementFacade pageHeader;
 
+    @FindBy(id = "Hamburger_Menu")
+    public WebElementFacade hamburgerMenu;
+
+    @FindBy(id = "TSA_News_Logo")
+    public WebElementFacade tsaLogo;
+
     public void checkPageHeader(String expectedHeader) {
+        pageHeader.waitUntilVisible();
         String header = pageHeader.getText();
-        System.out.println(header);
         assertThat(expectedHeader.equalsIgnoreCase(header));
+    }
+
+    public void checkForHamburgerMenu() {
+        assertThat(hamburgerMenu.isCurrentlyVisible());
+        System.out.println("menu visible");
+    }
+
+    public void checkForLogo() {
+        assertThat(tsaLogo.isCurrentlyVisible());
+        System.out.println("logo visible");
     }
 }
