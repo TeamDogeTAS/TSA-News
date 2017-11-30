@@ -23,7 +23,13 @@ public class LoginPage extends PageObject{
     @FindBy(id = "login_button")
     public WebElementFacade loginBtn;
 
-    public void verifyLoginPrompt(String error) {
+    @FindBy(xpath = "/html/body/div[2]/div/div[3]/button[2]")
+    public WebElementFacade acceptBtn;
+
+    @FindBy(id = "Incorrect_Email")
+    public WebElementFacade wrongEmail;
+
+    public void verifyErrorPrompt(String error) {
         assertThat(errorPrompt.getText().equalsIgnoreCase(error));
     }
 
@@ -37,7 +43,22 @@ public class LoginPage extends PageObject{
         loginBtn.click();
     }
 
-    public void verifyPinRequest(String message) {
-        assertThat(loginPrompt.getText().equals(message));
+
+    public void acceptPopup() {
+        waitFor(1).seconds();
+        if(!loginPrompt.isCurrentlyEnabled())
+            acceptBtn.waitUntilClickable().click();
+    }
+
+    public void verifyLoginPrompt(String loginPrompt) {
+        assertThat(this.loginPrompt.getText().equalsIgnoreCase(loginPrompt));
+    }
+
+    public void clickOnNotYourEmail() {
+        wrongEmail.waitUntilClickable().click();
+    }
+
+    public void verifyEmailPortionIsResetTo(String email_address) {
+        assertThat(emailInput.getText().equalsIgnoreCase(email_address));
     }
 }

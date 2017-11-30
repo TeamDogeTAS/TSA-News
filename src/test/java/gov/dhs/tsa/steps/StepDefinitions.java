@@ -7,6 +7,8 @@ import gov.dhs.tsa.pages.TermsPage;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 
+import java.util.List;
+
 public class StepDefinitions extends ScenarioSteps{
 
     RequestPage requestPage;
@@ -30,8 +32,8 @@ public class StepDefinitions extends ScenarioSteps{
     }
 
     @Step("The error message should appear")
-    public void loginPromptIsThere(String errorMessage) {
-        loginPage.verifyLoginPrompt(errorMessage);
+    public void errorPromptIsThere(String errorMessage) {
+        loginPage.verifyErrorPrompt(errorMessage);
     }
 
     @Step("When the email {0} is used")
@@ -85,11 +87,6 @@ public class StepDefinitions extends ScenarioSteps{
         requestPage.uncheckTermsWithEmail(email);
     }
 
-    @Step("A correct TSA email {0} is used")
-    public void correctEmailIsEntered(String email) {
-        requestPage.submitEmail(email);
-    }
-
     @Step
     public void verifyHamburgerMenuDisplayed() {
         latestNewsPage.checkForHamburgerMenu();
@@ -97,5 +94,26 @@ public class StepDefinitions extends ScenarioSteps{
     @Step
     public void verifyTsanewsLogoDisplayed() {
         latestNewsPage.checkForLogo();
+    }
+    @Step
+    public void dealWithPopupIfPresent() {
+    loginPage.acceptPopup();
+    }
+    @Step("The PIN request prompt should show")
+    public void loginPromptIsThere(String loginPrompt) {
+        loginPage.verifyLoginPrompt(loginPrompt);
+    }
+    @Step
+    public void clickNotYourEmail() {
+        loginPage.clickOnNotYourEmail();
+        loginPage.verifyEmailPortionIsResetTo("Email address");
+    }
+    @Step
+    public void openHamburgerMenu() {
+        latestNewsPage.clickOnHamburgerMenu();
+    }
+    @Step
+    public void verifyLinksOnHamburgerMenu(List<String> options) {
+        latestNewsPage.verifyLinksOnMenu(options);
     }
 }

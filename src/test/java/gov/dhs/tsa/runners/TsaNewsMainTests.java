@@ -8,6 +8,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static net.thucydides.core.annotations.ClearCookiesPolicy.Never;
 
 @RunWith(SerenityRunner.class)
@@ -22,6 +26,7 @@ public class TsaNewsMainTests {
 
     @Test
     public void mainPageVerification() {
+        List<String> options = Arrays.asList("Latest News", "My News", "TSA Video", "USAJOBS", "Social Media", "Settings");
         //open and login to app
         stepDefinitions.givenThePageLoads();
         stepDefinitions.loginWithPin();
@@ -34,9 +39,8 @@ public class TsaNewsMainTests {
         //verify header of current page
         stepDefinitions.newsfeedPageIsDisplayed("Latest News");
         //select hamburger menu and verify the options displayed
-//        mainAppSteps.openHamburgerMenu();
-//        mainAppSteps.verifyLinksOnHamburgerMenu();
-        //check to verify that when an option is picked, the correct page is displayed (rinse and repeat)
-//        mainAppSteps.verifyNavigationOfLinks();
+        stepDefinitions.openHamburgerMenu();
+        stepDefinitions.verifyLinksOnHamburgerMenu(options);
+
     }
 }

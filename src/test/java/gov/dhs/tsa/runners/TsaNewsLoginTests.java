@@ -42,7 +42,7 @@ public class TsaNewsLoginTests {
         //try to log in with wrong email address
         stepDefinitions.emailAndPinIsEntered("doge@accenturefederal.com", "12345678");
         //verify error message in login regarding email address
-        stepDefinitions.loginPromptIsThere("An identification pin is sent only to your TSA email ending in \"tsa.dhs.gov.\" To log in, please provide your TSA email address.");
+        stepDefinitions.errorPromptIsThere("An identification pin is sent only to your TSA email ending in \"tsa.dhs.gov.\" To log in, please provide your TSA email address.");
     }
 
     @Test
@@ -88,7 +88,7 @@ public class TsaNewsLoginTests {
         //and
         stepDefinitions.emailAndPinIsEntered("doge@tsa.dhs.gov", "29380193");
         //then
-        stepDefinitions.loginPromptIsThere("The pin you entered is incorrect. Pins are 8 characters long. Please try again.");
+        stepDefinitions.errorPromptIsThere("The pin you entered is incorrect. Pins are 8 characters long. Please try again.");
     }
 
     @Test
@@ -111,8 +111,24 @@ public class TsaNewsLoginTests {
         stepDefinitions.loginWithPin();
         stepDefinitions.loginPageLoads();
         stepDefinitions.emailAndPinIsEntered("doge@tsa.dhs.gov", "29380193");
-        stepDefinitions.loginPromptIsThere("The pin you entered is incorrect. Pins are 8 characters long. Please try again.");
+        stepDefinitions.errorPromptIsThere("The pin you entered is incorrect. Pins are 8 characters long. Please try again.");
         stepDefinitions.emailAndPinIsEntered("doge@tsa.dhs.gov", "999ZAZBW");
         stepDefinitions.newsfeedPageIsDisplayed("Latest News");
+    }
+
+    @Test
+    public void verifySuccessfulPinRequest(){
+        stepDefinitions.givenThePageLoads();
+        stepDefinitions.whenWrongEmailIsUsed("doge1@tsa.dhs.gov");
+        stepDefinitions.dealWithPopupIfPresent();
+        stepDefinitions.loginPromptIsThere("An identification pin has been sent to your email address. Please enter the pin below to log in.");
+    }
+
+    @Test
+    public void verifyNotYourEmailAddressLink(){
+        stepDefinitions.givenThePageLoads();
+        stepDefinitions.whenWrongEmailIsUsed("doge1@tsa.dhs.gov");
+        stepDefinitions.dealWithPopupIfPresent();
+        stepDefinitions.clickNotYourEmail();
     }
 }
