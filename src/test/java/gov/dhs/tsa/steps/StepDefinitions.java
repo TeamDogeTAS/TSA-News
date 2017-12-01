@@ -1,9 +1,6 @@
 package gov.dhs.tsa.steps;
 
-import gov.dhs.tsa.pages.LatestNewsPage;
-import gov.dhs.tsa.pages.LoginPage;
-import gov.dhs.tsa.pages.RequestPage;
-import gov.dhs.tsa.pages.TermsPage;
+import gov.dhs.tsa.pages.*;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 
@@ -15,6 +12,8 @@ public class StepDefinitions extends ScenarioSteps{
     LoginPage loginPage;
     TermsPage termsPage;
     LatestNewsPage latestNewsPage;
+    SettingsPage settingsPage;
+    MyLocationPage myLocationPage;
 
     @Step("Open TSA News main Login Page")
     public void givenThePageLoads() {
@@ -115,5 +114,22 @@ public class StepDefinitions extends ScenarioSteps{
     @Step
     public void verifyLinksOnHamburgerMenu(List<String> options) {
         latestNewsPage.verifyLinksOnMenu(options);
+    }
+    @Step
+    public void selectSettings() {
+        latestNewsPage.selectSettingsOption();
+    }
+    @Step
+    public void verifySettingsPage() {
+        settingsPage.verifyPage();
+    }
+    @Step
+    public void setLocationTo(String iad) {
+        settingsPage.selectMyLocation();
+        myLocationPage.setAirport(iad);
+    }
+    @Step
+    public void selectMyNews() {
+        latestNewsPage.selectAndVerify();
     }
 }
